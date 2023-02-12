@@ -1,7 +1,9 @@
 #include <iostream>
 #include "spreadsheet.h"
+#include "TDD.h"
 
 int main()
 {
-    return 0;
+    test_cell_functions();
+    test_spreadsheet_functions();
 }

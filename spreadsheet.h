@@ -6,6 +6,8 @@
 class Spreadsheet
 {
 public:
+    int get_row() const;
+    int get_column() const;
     void set_cell_at(int, int, const Cell&);
     void set_cell_at(int, int, const std::string&);
     Cell get_cell_at(int, int);

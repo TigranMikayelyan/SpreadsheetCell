@@ -1,84 +1,96 @@
-#include <iostream>
-#include "cell.h"
-#include "spreadsheet.h"
-#include "date.h"
+#include "TDD.h"
 
-void test_cell_values()
+void test_cell_functions()
 {
-    Cell c1;
-    c1.set_value("22");
-    if (c1.get_value() != "22")
+    std::cout << std::endl;
+    std::cout << "Cell functions: " << std::endl;
+    std::cout << std::endl;
+    Cell cell;
+    cell.set_value("41");
+    if (cell.to_int() == 41)
     {
-       std::cout << "Test failed! Problem: getValue()" << std::endl;
+        std::cout << "set_value() - passed!" << std::endl;
+        std::cout << "to_int() - passed!" << std::endl;
     }
-    else
+    std::string str = cell.get_value();
+    if(str == "41")
     {
-        std::cout << "Test passed!" << std::endl;
+        std::cout << "get_value - passed!" << std::endl;
     }
-    if (c1.to_int() != 22)
+    cell.reset();
+    if (cell.get_value() == "" && cell.get_color() == Color::NOCOLOR)
     {
-        std::cout << "Test failed! Problem: toInt()" << std::endl;
+        std::cout << "reset() - passed!" << std::endl;
     }
-    else
+    cell.set_value("41.5");
+    if (cell.to_double() == 41.5)
     {
-        std::cout << "Test passed!" << std::endl;
+        std::cout << "to_double() - passed!" << std::endl;
     }
-    Cell c2;
-    c2.set_value("3.14");
-    if (c2.to_double() != 3.14)
+    Color c;
+    cell.set_color(c);
+    if (cell.color_to_string(cell.get_color()) == "Green")
     {
-        std::cout << "Test failed! Problem: toDouble()" << std::endl;
-    }
-    else
-    {
-        std::cout << "Test passed!" << std::endl;
-    }
-    
-    Cell c3;       
-    c3.setValue("08082006");
-    Date dt((Month(08)), (Day(08)), (Year(2006)));
-    if (c3.toDate() != dt)
-    {
-        std::cout << "Test failed! Problem: toDate()" << std::endl;
-    }
-    else 
-    {
-        std::cout << "Test passed!" << std::endl;
-    }
-
-
-    c3.reset();
-    if (c3.get_value() != "")
-    {
-        std::cout << "Test failed! Problem: reset()" << std::endl;
-    }
-    else
-    {
-        std::cout << "Test passed!" << std::endl;
+        std::cout << "set_color() - passed!" << std::endl;
+        std::cout << "get_color() - passed!" << std::endl;
+        std::cout << "to_string() - passed!" << std::endl;
     }
 }
-void test_spreadsheet_value()
+
+void test_spreadsheet_functions()
 {
-    Spreadsheet sp1;
-    Cell c1;
-    sp1.set_cell_at(1, 1, c1);
-    if (get_cell_at(1, 1) != c1)
+    std::cout << std::endl;
+    std::cout << "Spreadsheet functions: " << std::endl;
+    std::cout << std::endl;
+    Spreadsheet spreadsheet;
+    int size = 2;
+    spreadsheet.add_row(size);
+    spreadsheet.add_column(size);
+    if (spreadsheet.get_row() == size && spreadsheet.get_column() == size)
     {
-        std::cout << "Test failed! Problem: getCellAt()" << std::endl;
+        std::cout << "add_row() - passed! " << std::endl;
+        std::cout << "add_column() - passed! " << std::endl;
+        std::cout << "get_row() - passed! " << std::endl;
+        std::cout << "get_column() - passed! " << std::endl;
     }
-    else
+    spreadsheet.set_cell_at(0, 0, "42");
+    Cell cl = spreadsheet.get_cell_at(0, 0);
+    if (cl.get_value() == "42")
     {
-        std::cout << "Test passed!" << std::endl;
+        std::cout << "set_cell_at() - passed!" << std::endl;
+        std::cout << "get_cell_at() - passed!" << std::endl;
     }
-    Spreadsheet sp2;
-    std::string st = "Hello";
-    sp2.set_cell_at(1, 1, st);
-    if (get_cell_at(1, 1) != st)
+    spreadsheet.insert_column(0);
+    spreadsheet.insert_row(0);
+    if (spreadsheet.get_column() == size + 1 && spreadsheet.get_row() == size + 1)
     {
-        std::cout << "Test failed! Problem: getCellAt()" << std::endl;
+        std::cout << "insert_column() - passed!" << std::endl;
+        std::cout << "insert_row() - passed!" << std::endl;
     }
-    else
+    spreadsheet.remove_row(0);
+    spreadsheet.remove_column(0);
+    if (spreadsheet.get_row() == size && spreadsheet.get_column() == size)
     {
-        std::cout << "Test passed!" << std::endl;
+        std::cout << "remove_row() - passed!" << std::endl;
+        std::cout << "remove_column() - passed!" << std::endl;
+    }
+     std::cout << "!" << std::endl;
+
+    // spreadsheet.set_cell_at(0, 0, "Tiko");
+    // spreadsheet.set_cell_at(1, 0, "Vle");
+     
+    spreadsheet.swap_rows(0, 1);
+    Cell c = spreadsheet.get_cell_at(0, 0);
+    std::cout << c.get_value() << std::endl;
+    if (c.get_value() == "Vle")
+    {
+        std::cout << "get_value() - passed!" << std::endl;
+    }
+    c.reset();
+    spreadsheet.swap_columns(0, 1);
+    c = spreadsheet.get_cell_at(0, 0);
+    if (c.get_value() == "")
+    {
+        std::cout << "swap_columns() - passed!" << std::endl;
     }
 }

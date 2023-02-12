@@ -15,8 +15,18 @@ void Spreadsheet::print()
          {
             std::cout << ii[j].get_value()  << " ";
          }
-         std::cout << '\n';
+        std::cout << '\n';
     }
+}
+
+int Spreadsheet::get_row() const
+{
+    return m_row;
+}
+
+int Spreadsheet::get_column() const
+{
+    return m_column;
 }
 
 void Spreadsheet::insert_row(int row_ind)
@@ -37,7 +47,7 @@ void Spreadsheet::insert_column(int column_ind)
         ++m_column;
         for (int i = 0; i < m_row; ++i)
         { 
-            std::vector<Cell> tmp(column_ind);
+            std::vector<Cell> tmp(m_column + 1);
             for (int j = 0, t = 0; j < m_column; ++j, ++t)
             {
                 if (j == column_ind)
@@ -165,8 +175,7 @@ void Spreadsheet::swap_rows(int row1, int row2)
 
 void Spreadsheet::swap_columns(int col1, int col2)
 {
-
-    for (int i = 0; i < m_row; ++i) 
+    for (int i = 0; i < m_row; ++i)
     {
         Cell tmp = m_cells[i][col1];
         m_cells[i][col1] = m_cells[i][col2];
