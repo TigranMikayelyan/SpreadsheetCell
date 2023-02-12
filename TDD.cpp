@@ -74,11 +74,8 @@ void test_spreadsheet_functions()
         std::cout << "remove_row() - passed!" << std::endl;
         std::cout << "remove_column() - passed!" << std::endl;
     }
-     std::cout << "!" << std::endl;
-
-    // spreadsheet.set_cell_at(0, 0, "Tiko");
-    // spreadsheet.set_cell_at(1, 0, "Vle");
-     
+    spreadsheet.set_cell_at(0, 0, "Tiko");
+    spreadsheet.set_cell_at(1, 0, "Vle");
     spreadsheet.swap_rows(0, 1);
     Cell c = spreadsheet.get_cell_at(0, 0);
     std::cout << c.get_value() << std::endl;
